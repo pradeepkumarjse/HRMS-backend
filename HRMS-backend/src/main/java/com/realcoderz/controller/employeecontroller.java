@@ -32,8 +32,8 @@ public class employeecontroller {
 	@Autowired
 	private employeeservice empservice;
 	
-	@Autowired
-	private fileuploadhelper fileupload;
+	//@Autowired
+	//private fileuploadhelper fileupload;
 	
 	@GetMapping("/home")
 	public String home() {
