@@ -3,7 +3,7 @@ package com.realcoderz.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.realcoder.entity.Employee;
+import com.realcoderz.model.Employee;
 
 
 @Repository

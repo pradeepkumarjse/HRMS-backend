@@ -2,7 +2,7 @@ package com.realcoderz.service;
 
 import java.util.List;
 
-import com.realcoder.entity.Employee;
+import com.realcoderz.model.Employee;
 
 
 
