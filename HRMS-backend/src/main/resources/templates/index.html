@@ -1,0 +1,175 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Importing NavBar -->
+	<div th:insert="navbar.html :: navbar"></div> 
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Index</title>
+	 
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" th:href="@{/css/index.css}">
+
+	<script src="jquery-3.3.1.min.js"></script>
+	
+
+</head>
+
+<body class="conatiner">
+	
+
+
+	<div class="container">
+
+		<!--<input id="findAll" type="button" value="Attempt Quiz" />-->
+		<br><br>
+		<button><a href="question_crud.html">Go to Question Console</a></button>
+		</div>
+		
+		<br><br>
+		
+		
+		<div class="container">
+		<button><a href="/HumanResourceManagementSystem/startQuiz">Start Accessment</a></button>
+		</div>
+	
+
+   
+   <br><br><br><br>
+   <br><br><br><br>
+    <br><br><br><br>
+    <br>
+    
+	<!--<div class="mt-2 container" id="getAllQuestion">
+
+
+	</div>-->
+
+<!--
+	<div class=" mt-2 container">
+	
+	     <button class="submitAnswer">Submit </button>
+		
+	 </div>-->
+
+
+
+
+
+	<script type="text/javascript">
+	  $( document ).ready(function() {
+        var final_array={}
+        $(document).on('click', '.c1', function (){
+            var candidate_answer = $(this).val();
+            var q_id=$(this).attr("primary_id")
+            option={
+                "q_id":q_id,
+                "candidate_answer":candidate_answer,
+            }
+            final_array[q_id]=option
+            console.log(final_array)     
+             
+             
+           });
+        });
+             
+        var lanth_og_ques=0;
+
+        $('.apireq').click( function(event) {
+            event.preventDefault();
+            var formData =[]
+            console.log(formData)
+            let keyss=Object.keys(final_array);
+            for (let i = 0; i < keyss.length; i++) {
+               let text = final_array[keyss[i]]
+                formData.push(text); 
+            }
+            
+            console.log(formData)
+            $.ajax({
+				type:'POST',
+				url:"http://",
+                data:JSON.stringify(formData),
+				async:true,
+                dataType:'json',
+				success:function(response){
+				 console.log(response)   
+                }
+		    });
+        });
+          
+          ///////////////////////////////////// Ajax start ///////////////////////////////////////////
+
+		var html_code = "";
+		var option = [];
+		var i = 0;
+		$(document).ready(function () {
+			$('#findAll').click(function () {
+				$.ajax({
+					url: "question",
+					type: 'GET',
+					async: true,
+					dataType: "json",
+					success: function (response) {
+
+					
+						console.log(response);
+						for (var i = 0; i < response.length; i++) {
+
+							$(document).on('click', function () {});
+
+							let obj = response[i];
+							let j = i + 1;
+							let k = i + 1;
+							let m = 0;
+							let ans = [];
+
+
+							let temp = '<p><strong>Q-' + j + '. ' + obj.question + '</p></strong>' +
+
+								'<input primary_id="' + obj.id + '"  type="radio" id="op1' + j + '" name="checkbox' + k + '" class="c1" value="' + obj.op1 + '">' +
+								'<label for="op1' + j + '"> ' + obj.op1 + '</label><br>' +
+
+								'<input primary_id="' + obj.id + '"  type="radio" id="op2' + j + '" name="checkbox' + k + '" class="c1" value="' + obj.op2 + '">' +
+								'<label for="op2' + j + '">' + obj.op2 + '</label><br>' +
+
+								'<input primary_id="' + obj.id + '"   type="radio" id="op3' + j + '" name="checkbox' + k + '" class="c1" value="' + obj.op3 + '">' +
+								'<label for="op3' + j + '">' + obj.op3 + '</label><br>' +
+
+								'<input primary_id="' + obj.id + '"   type="radio" id="op4' + j + '" name="checkbox' + k + '" class="c1" value="' + obj.op4 + '">' +
+								'<label for="op4' + j + '">' + obj.op4 + '</label><br><br>';
+
+
+
+
+							html_code = html_code + temp;
+						}
+
+						$('#getAllQuestion').html(html_code)
+					}
+				})
+			});
+			
+			/////////////////////////////////////////////////////////  AJAX END /////////////////////////////////////////////////////
+
+		});
+
+		
+
+	</script>
+
+
+    <!-- Importing Footer -->
+	<div th:insert="footer.html :: footer"></div>
+	
+	
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
