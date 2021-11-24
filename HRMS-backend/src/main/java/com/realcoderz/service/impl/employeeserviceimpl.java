@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.realcoder.entity.Employee;
-import com.realcoder.repository.employeerepository;
-import com.realcoder.service.employeeservice;
+import com.realcoderz.model.Employee;
+import com.realcoderz.repository.employeerepository;
+import com.realcoderz.service.employeeservice;
 
-import com.realcoder.serviceimpl.employeeserviceimpl;
+import com.realcoderz.service.impl.employeeserviceimpl;
 
 @Service
 public class employeeserviceimpl implements employeeservice {

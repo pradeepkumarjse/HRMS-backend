@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.realcoder.entity.Employee;
+import com.realcoderz.model.Employee;
 import com.realcoder.helper.fileuploadhelper;
-import com.realcoder.service.employeeservice;
+import com.realcoderz.service.employeeservice;
 
 
 
