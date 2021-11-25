@@ -3,42 +3,49 @@ package com.realcoderz.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.realcoderz.model.QuestionForm;
 import com.realcoderz.model.Result;
-import com.realcoderz.service.impl.QuizServiceImpl;
+import com.realcoderz.service.IQuizService;
 
-@Controller
-//@RequestMapping("/")
+@RestController
+@RequestMapping("/api/v1/quiz")
 public class QuizController {
-	
-	@GetMapping("/")
-	public String home() {
-		 return "index.html";
-	}
-	
-	
-	@GetMapping("/startQuiz")
-	public String startQuiz() {
-		 return "start_quiz.html";
-	}
-	
 	
 	
 	@Autowired
 	private Result result;
 	
 	@Autowired
-	private QuizServiceImpl qService;
+	private IQuizService qService;
 
 	Boolean submitted=false;
+	
+	
+	
+	@PostMapping("/start")
+	public QuestionForm quiz(@RequestParam String username) {
+		if(username.equals("")) {
+			
+	     }
+		
+		submitted=false;
+		result.setUsername(username);
+		
+		QuestionForm qForm=qService.getQuestions();
+         return qForm;		
+		
+	}
+	
+	
 	
 	
 	
@@ -48,35 +55,17 @@ public class QuizController {
 	}
 	
 	
-	@PostMapping("/quiz")
-	public String quiz(@RequestParam String username, Model m, RedirectAttributes ra) {
-		if(username.equals("")) {
-			ra.addFlashAttribute("Warning ","you must enter your username");
-		    return "redirect:/";
-	     }
-		
-		submitted=false;
-		result.setUsername(username);
-		
-		QuestionForm qForm=qService.getQuestions();
-		m.addAttribute("qForm", qForm);
-		
-		return "quiz.html";
-	}
-	
+
 	
 	
 	@PostMapping("/submit")
-	public String submit(@ModelAttribute QuestionForm qForm,Model m) {
-		System.out.println("start");
-		System.out.println(qForm);
-		System.out.println("end");
+	public String submit(@ModelAttribute QuestionForm qForm,Model m) {	
 		if(!submitted) {
 			result.setTotalCorrect(qService.getResult(qForm));
 			qService.saveScore(result);
 			submitted=true;
 		}		
-		return "result.html";
+		return "test";
 	}
 	
 	
