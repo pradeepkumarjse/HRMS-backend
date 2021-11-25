@@ -20,10 +20,10 @@ public class Question {
 	private String op1;
 	private String op2;
 	private String op3;
-	private String op4;
-	
+	private String op4;	
 	 
 	private int ans_option;
+	
 	private int choose;
 	
 	public Question() {
