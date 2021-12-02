@@ -15,9 +15,6 @@ import com.realcoderz.service.impl.employeeserviceimpl;
 @Service
 public class employeeserviceimpl implements employeeservice {
 
-	
-	
-	
 	@Autowired
 	private employeerepository emprepository;
 	
@@ -47,7 +44,7 @@ public class employeeserviceimpl implements employeeservice {
 	
 	// insert employee
 	
-	@Override
+	@Override  
 	public Employee addemployee(Employee emp) {
 		// TODO Auto-generated method stub
 

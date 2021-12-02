@@ -8,7 +8,7 @@ import com.realcoderz.model.Employee;
 
 public interface employeeservice {
 	
-public List<Employee> getemployees();
+	public List<Employee> getemployees();
 	
 	public Employee getemployee(Long empid);
 	
