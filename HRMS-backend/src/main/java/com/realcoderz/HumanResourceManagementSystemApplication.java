@@ -27,38 +27,39 @@ public class HumanResourceManagementSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HumanResourceManagementSystemApplication.class, args);
 	}
-	@PostConstruct
-	protected void init() {
-		
-		List<Authority> authorityList=new ArrayList<>();
-		
-		authorityList.add(createAuthority("USER","User role"));
-		//authorityList.add(createAuthority("ADMIN","Admin role"));
-		
-		User user=new User();
-		
-		user.setUserName("pradeep123");
-		user.setFirstName("Pradeep");
-		user.setLastName("Kumar");
-		
-		user.setPassword(passwordEncoder.encode("pradeep@123"));
-		user.setEnabled(true);
-		user.setAuthorities(authorityList);
-		
-		userDetailsRepository.save(user);
-		
-		
-		
-	}
 	
-	
-	private Authority createAuthority(String roleCode,String roleDescription) {
-		Authority authority=new Authority();
-		authority.setRoleCode(roleCode);
-		authority.setRoleDescription(roleDescription);
-		return authority;
-	}
-	
-	
+//	@PostConstruct
+//	protected void init() {
+//		
+//		List<Authority> authorityList=new ArrayList<>();
+//		
+//		authorityList.add(createAuthority("USER","User role"));
+//		//authorityList.add(createAuthority("ADMIN","Admin role"));
+//		
+//		User user=new User();
+//		
+//		user.setUserName("pradeepkumar");
+//		user.setFirstName("Pradeep");
+//		user.setLastName("Kumar");
+//		
+//		user.setPassword(passwordEncoder.encode("pradeep@123"));
+//		user.setEnabled(true);
+//		user.setAuthorities(authorityList);
+//		
+//		userDetailsRepository.save(user);
+//		
+//		
+//		
+//	}
+//	
+//	
+//	private Authority createAuthority(String roleCode,String roleDescription) {
+//		Authority authority=new Authority();
+//		authority.setRoleCode(roleCode);
+//		authority.setRoleDescription(roleDescription);
+//		return authority;
+//	}
+//	
+//	
 
 }
