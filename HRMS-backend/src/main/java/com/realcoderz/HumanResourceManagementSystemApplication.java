@@ -31,25 +31,22 @@ public class HumanResourceManagementSystemApplication {
 //	@PostConstruct
 //	protected void init() {
 //		
-//		List<Authority> authorityList=new ArrayList<>();
-//		
+//	List<Authority> authorityList=new ArrayList<>();
+//	
 //		authorityList.add(createAuthority("USER","User role"));
 //		//authorityList.add(createAuthority("ADMIN","Admin role"));
 //		
 //		User user=new User();
 //		
-//		user.setUserName("pradeepkumar");
-//		user.setFirstName("Pradeep");
-//		user.setLastName("Kumar");
+//		user.setUserName("abhiraj");
+//		user.setFirstName("Abhiraj");
+//		user.setLastName("Puskar");
 //		
-//		user.setPassword(passwordEncoder.encode("pradeep@123"));
+//		user.setPassword(passwordEncoder.encode("Abhiraj@123"));
 //		user.setEnabled(true);
 //		user.setAuthorities(authorityList);
 //		
-//		userDetailsRepository.save(user);
-//		
-//		
-//		
+//		userDetailsRepository.save(user);		
 //	}
 //	
 //	
@@ -60,6 +57,6 @@ public class HumanResourceManagementSystemApplication {
 //		return authority;
 //	}
 //	
-//	
+	
 
 }
