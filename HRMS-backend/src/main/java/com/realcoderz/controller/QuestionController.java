@@ -88,27 +88,6 @@ public class QuestionController {
 	
 
 	
-	Boolean submitted = false;	
-	@Autowired
-	private Result result;
-	@Autowired
-	private QuizServiceImpl qService;
-	
-	@PostMapping("/quiz")
-	public String quiz(@RequestParam String username, Model m, RedirectAttributes ra) {
-		if(username.equals("")) {
-			ra.addFlashAttribute("warning", "You must enter your name");
-			return "redirect:/";
-		}		
-		submitted = false;
-		result.setUsername(username);
-		
-		QuestionForm qForm = qService.getQuestions();
-		m.addAttribute("qForm", qForm);
-		System.out.println(qForm);
-		return "quiz.html";
-	}
-	
 	
 	
 }

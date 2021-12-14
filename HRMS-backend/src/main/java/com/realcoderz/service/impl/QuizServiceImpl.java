@@ -30,11 +30,9 @@ public class QuizServiceImpl implements IQuizService{
 	
 	public QuestionForm getQuestions() {		
 		List<Question> allQues=qRepo.findAll();
-		List<Question> qList=new ArrayList<Question>();
-		
-		Random random=new Random();
-		
-		for(int i=0;i<5;i++) {
+		List<Question> qList=new ArrayList<Question>();		
+		Random random=new Random();		
+		for(int i=0;i<8;i++) {
 			int rand=random.nextInt(allQues.size());
 			qList.add(allQues.get(rand));
 			allQues.remove(rand);
@@ -43,13 +41,13 @@ public class QuizServiceImpl implements IQuizService{
 		return qForm;
 	}
 	
+	
+	
 	public int getResult(QuestionForm qForm) {
-		int correct=0;
-		
+		int correct=0;		
 		for(Question q:qForm.getQuestions())			
 			if(q.getAns_option()==q.getChoose())
-				correct++;
-		
+				correct++;		
 		return correct;
 	}
 	
