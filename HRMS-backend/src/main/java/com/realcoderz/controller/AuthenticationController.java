@@ -1,5 +1,6 @@
 package com.realcoderz.controller;
 
+import java.io.Console;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.security.spec.InvalidKeySpecException;
@@ -55,11 +56,16 @@ public class AuthenticationController {
 	@GetMapping("/auth/userinfo")
 	public ResponseEntity<?> getUserInfo(Principal user){
 		
-		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());		
+		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());	
+		
 		UserInfo userInfo=new UserInfo();
+		
 		userInfo.setFirstName(userObj.getFirstName());
 		userInfo.setLastName(userObj.getLastName());
-		userInfo.setRoles(userObj.getAuthorities().toArray());		
+		userInfo.setUserName(userObj.getUserName());
+		
+		userInfo.setRoles(userObj.getAuthorities().toArray());
+		
 		return ResponseEntity.ok(userInfo);
 		
 		

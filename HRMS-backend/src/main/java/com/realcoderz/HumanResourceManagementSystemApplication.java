@@ -37,6 +37,7 @@ public class HumanResourceManagementSystemApplication {
 //		authorityList.add(createAuthority("USER","User role"));
 //		//authorityList.add(createAuthority("ADMIN","Admin role"));
 //		
+
 //	User user=new User();
 //	
 //		user.setUserName("puskar");
@@ -48,6 +49,18 @@ public class HumanResourceManagementSystemApplication {
 //		user.setAuthorities(authorityList);
 //		
 //		userDetailsRepository.save(user);		
+
+//		User user=new User();
+//		
+//		user.setUserName("user");
+//		user.setFirstName("User");
+//		user.setLastName("Role");
+//		
+//		user.setPassword(passwordEncoder.encode("user@123"));
+//		user.setEnabled(true);
+//		user.setAuthorities(authorityList);		
+//		userDetailsRepository.save(user);
+//		
 //	}
 //	
 //	
@@ -57,7 +70,8 @@ public class HumanResourceManagementSystemApplication {
 //		authority.setRoleDescription(roleDescription);
 //		return authority;
 //	}
-//	
+
 //	
 //
 //}
+
