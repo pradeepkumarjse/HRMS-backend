@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.realcoderz.model.Admin;
 
-
-
 public interface adminservice {
 	
 public List<Admin> getadmin();

@@ -27,6 +27,7 @@ public class HumanResourceManagementSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HumanResourceManagementSystemApplication.class, args);
 	}
+}
 	
 //	@PostConstruct
 //	protected void init() {
@@ -36,13 +37,13 @@ public class HumanResourceManagementSystemApplication {
 //		authorityList.add(createAuthority("USER","User role"));
 //		//authorityList.add(createAuthority("ADMIN","Admin role"));
 //		
-//		User user=new User();
-//		
-//		user.setUserName("abhiraj");
+//	User user=new User();
+//	
+//		user.setUserName("puskar");
 //		user.setFirstName("Abhiraj");
 //		user.setLastName("Puskar");
-//		
-//		user.setPassword(passwordEncoder.encode("Abhiraj@123"));
+//	
+//		user.setPassword(passwordEncoder.encode("puskar@123"));
 //		user.setEnabled(true);
 //		user.setAuthorities(authorityList);
 //		
@@ -57,6 +58,6 @@ public class HumanResourceManagementSystemApplication {
 //		return authority;
 //	}
 //	
-	
-
-}
+//	
+//
+//}
