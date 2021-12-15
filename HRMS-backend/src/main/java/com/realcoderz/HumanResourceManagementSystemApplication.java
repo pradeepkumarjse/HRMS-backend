@@ -38,11 +38,11 @@ public class HumanResourceManagementSystemApplication {
 //		
 //		User user=new User();
 //		
-//		user.setUserName("pradeepkumar");
-//		user.setFirstName("Pradeep");
-//		user.setLastName("Kumar");
+//		user.setUserName("mohit");
+//		user.setFirstName("Mohit");
+//		user.setLastName("Sharma");
 //		
-//		user.setPassword(passwordEncoder.encode("pradeep@123"));
+//		user.setPassword(passwordEncoder.encode("mohit@123"));
 //		user.setEnabled(true);
 //		user.setAuthorities(authorityList);
 //		
@@ -60,6 +60,6 @@ public class HumanResourceManagementSystemApplication {
 //		return authority;
 //	}
 //	
-//	
+	
 
 }

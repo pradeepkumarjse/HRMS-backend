@@ -32,7 +32,7 @@ public class QuizServiceImpl implements IQuizService{
 		List<Question> allQues=qRepo.findAll();
 		List<Question> qList=new ArrayList<Question>();		
 		Random random=new Random();		
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<8;i++) {
 			int rand=random.nextInt(allQues.size());
 			qList.add(allQues.get(rand));
 			allQues.remove(rand);
