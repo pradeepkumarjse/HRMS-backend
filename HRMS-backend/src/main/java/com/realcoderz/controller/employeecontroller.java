@@ -40,7 +40,6 @@ public class employeecontroller {
 	return "index"; 
 	}
 
-	// get all employee details
 	
 	@GetMapping("/employees")
 	public List<Employee> getemployees() {
@@ -100,8 +99,9 @@ public class employeecontroller {
     // image upload
     
     @PostMapping("/upload-file")	
-	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file)
+	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file, @RequestParam("username") String un)
     {
+    	System.out.println(un);
 		/*
 		 * System.out.println(file.getOriginalFilename());
 		 * System.out.println(file.getSize());

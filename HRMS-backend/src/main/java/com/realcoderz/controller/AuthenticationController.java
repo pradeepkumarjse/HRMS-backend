@@ -25,6 +25,7 @@ import com.realcoderz.requests.AuthenticationRequest;
 import com.realcoderz.responses.LoginResponse;
 import com.realcoderz.responses.UserInfo;
 
+
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin("*")
@@ -58,11 +59,11 @@ public class AuthenticationController {
 		
 		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());	
 		
-		UserInfo userInfo=new UserInfo();
-		
+		UserInfo userInfo=new UserInfo();		
 		userInfo.setFirstName(userObj.getFirstName());
 		userInfo.setLastName(userObj.getLastName());
 		userInfo.setUserName(userObj.getUserName());
+		userInfo.setProfilePicPath(userObj.getProfilePicPath());
 		
 		userInfo.setRoles(userObj.getAuthorities().toArray());
 		

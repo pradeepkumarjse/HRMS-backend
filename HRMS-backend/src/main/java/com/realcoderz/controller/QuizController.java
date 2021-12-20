@@ -77,6 +77,7 @@ public class QuizController {
 		return sList;
 	}
 	
+	
 	@DeleteMapping("/delete-user-score/{id}")
 	public Map<String,Boolean> deleteUserScore(@PathVariable("id") int id) throws Exception{
 		Result result=resultRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Result not found on ::"+id));
@@ -85,5 +86,6 @@ public class QuizController {
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
+	
 	
 }

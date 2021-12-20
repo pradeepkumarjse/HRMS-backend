@@ -3,6 +3,7 @@ package com.realcoderz.model;
 import java.util.List;
 import java.util.stream.Collector;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,17 @@ public class Question {
 	private String op2;
 	private String op3;
 	private String op4;	
+	private String picPath;
+
+	
+	public String getPicPath() {
+		return picPath;
+	}
+
+	public void setPicPath(String picPath) {
+		this.picPath = picPath;
+	}
+
 	 
 	private int ans_option;
 	

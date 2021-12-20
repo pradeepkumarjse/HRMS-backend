@@ -1,13 +1,18 @@
 package com.realcoderz.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,15 +22,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.realcoderz.exception.ResourceNotFoundException;
 import com.realcoderz.model.Question;
-import com.realcoderz.model.QuestionForm;
-import com.realcoderz.model.Result;
 import com.realcoderz.repository.IQuestionRepository;
-import com.realcoderz.service.impl.QuizServiceImpl;
 
 
 @RestController
@@ -34,6 +37,9 @@ import com.realcoderz.service.impl.QuizServiceImpl;
 @CrossOrigin("*")
 public class QuestionController {
 
+	private static final String imageDirectory = System.getProperty("user.dir") + "/src/main/webapp/images/question";
+
+	
 	@Autowired
 	private IQuestionRepository questionRepository;
 
@@ -50,10 +56,26 @@ public class QuestionController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Object> insertQuestion(@RequestBody Question ques) {
-		System.out.println("QuestionController.insertQuestion()");
-		questionRepository.save(ques);
-		return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
+	public ResponseEntity<Object> insertQuestion(@RequestPart("ques") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
+		makeDirectoryIfNotExist(imageDirectory);
+		Path fileNamePath = Paths.get(imageDirectory,
+				imageName.concat(".").concat(FilenameUtils.getExtension(file.getOriginalFilename())));
+
+		Question q=ques;
+		q.setPicPath("http://localhost:4041/images/question/" + imageName + ".png");
+		questionRepository.save(q);
+		
+		
+		try {
+			Files.write(fileNamePath, file.getBytes());
+			return new ResponseEntity<>("Question added successfully", HttpStatus.CREATED);
+		} catch (IOException ie) {
+			ie.printStackTrace();
+			return new ResponseEntity<>("Question is not added", HttpStatus.BAD_REQUEST);
+		}
+
+		
+		
 	}
 	
 	@PutMapping("/{id}")
@@ -82,6 +104,12 @@ public class QuestionController {
 	}
 	
 
+	private void makeDirectoryIfNotExist(String imageDirectory) {
+		File directory = new File(imageDirectory);
+		if (!directory.exists()) {
+			directory.mkdir();
+		}
+	}
 
 	
 	
