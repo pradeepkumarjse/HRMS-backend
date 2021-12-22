@@ -45,6 +45,8 @@ public class JWTTokenHelper {
     }
 
 	
+	
+	
 	 public String getUsernameFromToken(String token) {
 	        String username;
 	        try {
@@ -56,9 +58,12 @@ public class JWTTokenHelper {
 	        return username;
 	 }
 	 
-	 public String generateToken(String username) throws InvalidKeySpecException, NoSuchAlgorithmException {
-	        
-	        return Jwts.builder()
+	 
+	 
+	 
+	 public String generateToken(String username) throws InvalidKeySpecException, NoSuchAlgorithmException {	        
+	       
+		 return Jwts.builder()
 	                .setIssuer( appName )
 	                .setSubject(username)
 	                .setIssuedAt(new Date())
@@ -67,9 +72,14 @@ public class JWTTokenHelper {
 	                .compact();
 	  }
 	 
+	 
+	 
 	 private Date generateExpirationDate() {
 		 return new Date(new Date().getTime() + expiresIn * 1000);
 	 }
+	 
+	 
+	 
 	 
 	 public Boolean validateToken(String token, UserDetails userDetails) {
 	        final String username = getUsernameFromToken(token);
@@ -80,11 +90,16 @@ public class JWTTokenHelper {
 	        );
 	  }
 	 
+	 
+	 
+	 
 	 public boolean isTokenExpired(String token) {
 		Date expireDate=getExpirationDate(token);
 		return expireDate.before(new Date());
 	}
 
+	 
+	 
 
 	private Date getExpirationDate(String token) {
 		 Date expireDate;
@@ -97,6 +112,9 @@ public class JWTTokenHelper {
 	        return expireDate;
 	}
 
+	
+	
+	
 
 	public Date getIssuedAtDateFromToken(String token) {
 	        Date issueAt;
@@ -109,15 +127,18 @@ public class JWTTokenHelper {
 	        return issueAt;
 	  }
 	
-	public String getToken( HttpServletRequest request ) {
-      
+	
+	
+	
+	public String getToken( HttpServletRequest request ) {      
         String authHeader = getAuthHeaderFromHeader( request );
         if ( authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
-
         return null;
     }
+	
+	
 
 	public String getAuthHeaderFromHeader( HttpServletRequest request ) {
         return request.getHeader("Authorization");

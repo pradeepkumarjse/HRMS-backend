@@ -44,12 +44,10 @@ public class QuizServiceImpl implements IQuizService{
 	
 	
 	public int getResult(QuestionForm qForm) {
-		int correct=0;
-		
+		int correct=0;		
 		for(Question q:qForm.getQuestions())			
 			if(q.getAns_option()==q.getChoose())
-				correct++;
-		
+				correct++;		
 		return correct;
 	}
 	
