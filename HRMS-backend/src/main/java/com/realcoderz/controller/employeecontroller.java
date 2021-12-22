@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.realcoderz.helper.fileuploadhelper;
 import com.realcoderz.model.Employee;
 import com.realcoderz.service.employeeservice;
-
-
 
 @RestController
 @RequestMapping("/realcoder/api")
@@ -59,11 +58,12 @@ public class employeecontroller {
 	
 	// inserting new employee
 	
+	
     @PostMapping("/employees")
-	public Employee addemployee(@RequestBody Employee emp)
+	public String addemployee(@RequestPart("emp") Employee emp, @RequestPart("file") MultipartFile file)
 	{
 		System.out.print("push mapping");
-    	return this.empservice.addemployee(emp);
+    	return this.empservice.addemployee(emp,file);
     	
 	}
     
@@ -96,8 +96,7 @@ public class employeecontroller {
    	
     }
     
-    // image upload
-    
+
     @PostMapping("/upload-file")	
 	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file, @RequestParam("username") String un)
     {
@@ -136,6 +135,7 @@ public class employeecontroller {
     	
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("!! something went wrong !!");
 	}
+
 
 
 

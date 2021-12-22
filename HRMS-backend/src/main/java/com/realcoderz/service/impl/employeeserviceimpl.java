@@ -5,21 +5,24 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.realcoderz.model.Employee;
 import com.realcoderz.repository.employeerepository;
 import com.realcoderz.service.employeeservice;
 
 import com.realcoderz.service.impl.employeeserviceimpl;
+import com.realcoderz.helper.fileuploadhelper;
 
 @Service
 public class employeeserviceimpl implements employeeservice {
 
-	
-	
-	
 	@Autowired
 	private employeerepository emprepository;
+	
+	@Autowired
+	private fileuploadhelper fileuploadhelper;
+	
 	
 	// get all employee
 	
@@ -47,13 +50,13 @@ public class employeeserviceimpl implements employeeservice {
 	
 	// insert employee
 	
-	@Override
-	public Employee addemployee(Employee emp) {
-		// TODO Auto-generated method stub
-
-		emprepository.save(emp);
+	@Override  
+	public String addemployee(Employee emp,MultipartFile file)
+	{
+		 
+		boolean b=fileuploadhelper.uploadfile(emp,file);
+		return "uploaded" ;
 		
-		return emp;
 	}
 
 	//update employee
@@ -66,14 +69,12 @@ public class employeeserviceimpl implements employeeservice {
 		if(empp.isPresent())
 		{
 			emprepository.save(emp);
-
 		}
 		 
 		return emp;
 		
 	}
 
-	
 	// delete employee
 
 	@Override

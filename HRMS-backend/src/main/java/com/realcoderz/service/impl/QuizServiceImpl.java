@@ -52,7 +52,6 @@ public class QuizServiceImpl implements IQuizService{
 	}
 	
 	
-	
 	public void saveScore(Result result) {
 		Result saveResult=new Result();
 		saveResult.setUsername(result.getUsername());

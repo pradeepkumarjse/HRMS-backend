@@ -50,9 +50,9 @@ public class adminserviceimpl implements adminservice {
 	
 	@Override
 	public Admin addadmin(Admin emp) {
-		// TODO Auto-generated method stub
+		
 
-		emprepository.save(emp);
+	emprepository.save(emp);
 		
 		return emp;
 	}
