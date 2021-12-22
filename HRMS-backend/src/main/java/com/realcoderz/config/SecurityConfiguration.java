@@ -15,14 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.realcoderz.service.CustomUserService;
+import com.realcoderz.service.IUserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private CustomUserService userService;
+	private IUserService userService;
 
 	@Autowired
 	private JWTTokenHelper jWTTokenHelper;
@@ -81,19 +81,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.exceptionHandling()
 		.authenticationEntryPoint(authenticationEntryPoint)
 		.and()
-		.authorizeRequests((request) -> request.antMatchers("/**","/api/v1/auth/login")
-		.permitAll()
-		.antMatchers(HttpMethod.OPTIONS, "/**")
-		.hasRole("ADMIN")
-		.antMatchers(HttpMethod.OPTIONS, "/api/v1/quiz/*")
-		.hasRole("USER")
-		.anyRequest()
-		.authenticated())
+		.authorizeRequests().antMatchers("/api/v1/user/register","/api/v1/auth/**","/images/**","/**").permitAll()
+				
+				
+		.antMatchers("/api/v1/quiz/score").authenticated()
+		
+				
+	     .antMatchers(HttpMethod.OPTIONS,"/api/v1/questions/**").permitAll()
+		  
+		
+		
+
+		
+		
+		.anyRequest().authenticated()
+		
+		
+		.and()
 		.addFilterBefore(new JWTAuthenticationFilter(userService, jWTTokenHelper),UsernamePasswordAuthenticationFilter.class);
 		
 		
 		http.csrf().disable().cors().and().headers().frameOptions().disable();
-		http.logout();
+		
 
 	}
 
