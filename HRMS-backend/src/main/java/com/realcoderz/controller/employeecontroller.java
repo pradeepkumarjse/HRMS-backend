@@ -39,7 +39,6 @@ public class employeecontroller {
 	return "index"; 
 	}
 
-	// get all employee details
 	
 	@GetMapping("/employees")
 	public List<Employee> getemployees() {
@@ -97,45 +96,46 @@ public class employeecontroller {
    	
     }
     
-    // image upload
-    
-//    @PostMapping("/upload-file")	
-//	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file)
-//    {
-//		/*
-//		 * System.out.println(file.getOriginalFilename());
-//		 * System.out.println(file.getSize());
-//		 * System.out.println(file.getContentType());
-//		 * System.out.println(file.getName());
-//		 */
-//    	try {
-//    	
-//    	if(file.isEmpty())
-//    	{
-//    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must Contains file");
-//    	}
-//    	
-//    	if(!file.getContentType().equals("image/jpeg"))
-//    	{
-//    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only jpeg content type allow");	
-//    	}
-//    	
-//    	boolean f=fileupload.uploadfile(file);
-//      
-//    	if(f) {
-//    	  return ResponseEntity.ok("file is successfully uploaded");
-//    	  
-//    	}
-//    	
-//    	
-//    	}
-//    	catch(Exception e) {
-//    		e.printStackTrace();
-//    	}
-//    	
-//    	
-//		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("!! something went wrong !!");
-//	}
+
+    @PostMapping("/upload-file")	
+	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file, @RequestParam("username") String un)
+    {
+    	System.out.println(un);
+		/*
+		 * System.out.println(file.getOriginalFilename());
+		 * System.out.println(file.getSize());
+		 * System.out.println(file.getContentType());
+		 * System.out.println(file.getName());
+		 */
+    	try {
+    	
+    	if(file.isEmpty())
+    	{
+    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must Contains file");
+    	}
+    	
+    	if(!file.getContentType().equals("image/jpeg"))
+    	{
+    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only jpeg content type allow");	
+    	}
+    	
+    	boolean f=fileupload.uploadfile(file);
+      
+    	if(f) {
+    	  return ResponseEntity.ok("file is successfully uploaded");
+    	  
+    	}
+    	
+    	
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("!! something went wrong !!");
+	}
+
 
 
 
