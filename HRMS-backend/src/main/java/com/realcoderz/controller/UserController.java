@@ -68,7 +68,7 @@ public class UserController {
 		makeDirectoryIfNotExist(imageDirectory);
 		Path fileNamePath = Paths.get(imageDirectory,
 				imageName.concat(".").concat(FilenameUtils.getExtension(file.getOriginalFilename())));
-
+        System.out.println(file);
 		User user = new User();
 		List<Authority> authorityList = new ArrayList<>();
 		authorityList.add(createAuthority("User", "User role"));

@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,8 +34,8 @@ import com.realcoderz.repository.IQuestionRepository;
 
 @RestController
 @RequestMapping("/api/v1/questions")
-//@CrossOrigin(origins= "http://localhost:3000")
-@CrossOrigin("*")
+@CrossOrigin(origins= "http://localhost:3000")
+
 public class QuestionController {
 
 	private static final String imageDirectory = System.getProperty("user.dir") + "/src/main/webapp/images/question";
@@ -55,12 +56,15 @@ public class QuestionController {
 		 return ResponseEntity.ok().body(question);
 	}
 	
-	@PostMapping
-	public ResponseEntity<Object> insertQuestion(@RequestPart("ques") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
+	
+	@PostMapping(produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
+	public ResponseEntity<Object> insertQuestion(@RequestPart("question") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
+		System.out.println("QuestionController.insertQuestion()");
 		makeDirectoryIfNotExist(imageDirectory);
 		Path fileNamePath = Paths.get(imageDirectory,
 				imageName.concat(".").concat(FilenameUtils.getExtension(file.getOriginalFilename())));
-
+     
+		
 		Question q=ques;
 		q.setPicPath("http://localhost:4041/images/question/" + imageName + ".png");
 		questionRepository.save(q);

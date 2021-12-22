@@ -30,12 +30,13 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "AUTH_USER_DETAILS")
 @Entity
 @Data
-@AllArgsConstructor
-@RequiredArgsConstructor
-@NoArgsConstructor
 public class User implements UserDetails {
 	
 	
+	public User() {
+		super();
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -79,14 +80,6 @@ public class User implements UserDetails {
 	private String profilePicPath;
 
 		
-	
-
-
-	
-
-	
-
-	
 
 	public String getProfilePicPath() {
 		return profilePicPath;
@@ -214,6 +207,39 @@ public class User implements UserDetails {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public User(long id, String userName, String password, Date createdAt, Date updatedAt, String firstName,
+			String lastName, String email, String phoneNumber, boolean enabled, String profilePicPath,
+			List<Authority> authorities) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.enabled = enabled;
+		this.profilePicPath = profilePicPath;
+		this.authorities = authorities;
+	}
+
+	public User(String userName, String password, Date createdAt, String firstName, String lastName, String email,
+			String phoneNumber, boolean enabled, String profilePicPath, List<Authority> authorities) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.createdAt = createdAt;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.enabled = enabled;
+		this.profilePicPath = profilePicPath;
+		this.authorities = authorities;
 	}
 	
 	
