@@ -3,6 +3,7 @@ package com.realcoderz.model;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,37 +14,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Table(name = "AUTH_USER_DETAILS")
 @Entity
+@Data
 public class User implements UserDetails {
 	
+	
+	public User() {
+		super();
+	}
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	
+
+	
 
 	@Column(name = "USER_NAME", unique = true)
 	private String userName;
@@ -72,10 +74,24 @@ public class User implements UserDetails {
 
 	@Column(name = "enabled")
 	private boolean enabled=true;
-
 	
+	@Column(name="profile_pic_path",length=200)	
+	
+	private String profilePicPath;
+
+		
+
+	public String getProfilePicPath() {
+		return profilePicPath;
+	}
+
+	public void setProfilePicPath(String profilePicPath) {
+		this.profilePicPath = profilePicPath;
+	}
+
 	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JoinTable(name = "AUTH_USER_AUTHORITY", joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName ="id"))
+	
 	private List<Authority> authorities;
 
 	@Override
@@ -191,6 +207,39 @@ public class User implements UserDetails {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public User(long id, String userName, String password, Date createdAt, Date updatedAt, String firstName,
+			String lastName, String email, String phoneNumber, boolean enabled, String profilePicPath,
+			List<Authority> authorities) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.enabled = enabled;
+		this.profilePicPath = profilePicPath;
+		this.authorities = authorities;
+	}
+
+	public User(String userName, String password, Date createdAt, String firstName, String lastName, String email,
+			String phoneNumber, boolean enabled, String profilePicPath, List<Authority> authorities) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.createdAt = createdAt;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.enabled = enabled;
+		this.profilePicPath = profilePicPath;
+		this.authorities = authorities;
 	}
 	
 	

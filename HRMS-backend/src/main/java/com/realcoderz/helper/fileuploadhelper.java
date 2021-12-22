@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class fileuploadhelper {
 
 	
-	public final String Upload_Dir="C:\\Users\\mohit\\Documents\\workspace-spring-tool-suite-4-4.12.0.RELEASE\\OnlineExam\\src\\main\\resources\\static\\image";
+	public final String Upload_Dir="D:\\STS-workspace\\maven.1637736115752\\HRMS-backend\\src\\main\\resources\\static";
 
 	public boolean uploadfile(MultipartFile multipartfile)
 	{

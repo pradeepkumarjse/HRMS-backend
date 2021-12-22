@@ -5,7 +5,16 @@ public class UserInfo {
 	private String firstName;
 	private String lastName;
 	private String userName;
+	private String profilePicPath;
 	
+	public String getProfilePicPath() {
+		return profilePicPath;
+	}
+
+	public void setProfilePicPath(String profilePicPath) {
+		this.profilePicPath = profilePicPath;
+	}
+
 	private Object roles;
 	
 
