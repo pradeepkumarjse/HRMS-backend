@@ -3,6 +3,8 @@ package com.realcoderz.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,7 +59,7 @@ public class AdminController {
 	// inserting new admin
 	
     @PostMapping("/admin")
-	public Admin addadmin(@RequestBody Admin emp)
+	public Admin addadmin(@Valid @RequestBody Admin emp)
 	{
 		System.out.print("push mapping");
     	return this.empservice.addadmin(emp);

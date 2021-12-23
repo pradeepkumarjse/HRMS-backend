@@ -3,6 +3,7 @@ package com.realcoderz.controller;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.security.spec.InvalidKeySpecException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.realcoderz.config.JWTTokenHelper;
+import com.realcoderz.model.Authority;
 import com.realcoderz.model.User;
 import com.realcoderz.requests.AuthenticationRequest;
 import com.realcoderz.responses.LoginResponse;
@@ -54,17 +56,17 @@ public class AuthenticationController {
 	
 	
 	@GetMapping("/auth/userinfo")
-	public ResponseEntity<?> getUserInfo(Principal user){
+	public ResponseEntity<?> getUserInfo(Principal principle){
 		
-		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());	
+		User userObj=(User) userDetailsService.loadUserByUsername(principle.getName());	
 		
-		UserInfo userInfo=new UserInfo();		
+		User userInfo=new User();		
 		userInfo.setFirstName(userObj.getFirstName());
 		userInfo.setLastName(userObj.getLastName());
 		userInfo.setUserName(userObj.getUsername());
 		userInfo.setProfilePicPath(userObj.getProfilePicPath());
 		
-		userInfo.setRoles(userObj.getAuthorities().toArray());
+		userInfo.setAuthorities((List<Authority>) userObj.getAuthorities());
 		
 		return ResponseEntity.ok(userInfo);
 		

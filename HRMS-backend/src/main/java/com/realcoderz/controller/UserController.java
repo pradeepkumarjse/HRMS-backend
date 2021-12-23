@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,11 +61,11 @@ public class UserController {
 	
 
 	@PostMapping(value = "/register", produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
-	public ResponseEntity<Object> registerUser(@RequestParam("imageFile") MultipartFile file,
-			@RequestParam("imageName") String imageName, @RequestParam("firstName") String firstName,
-			@RequestParam("lastName") String lastName, @RequestParam("email") String email,
-			@RequestParam("phone") String phone, @RequestParam("username") String username,
-			@RequestParam("password") String password) throws Exception {
+	public ResponseEntity<Object> registerUser(@Valid @RequestParam("imageFile") MultipartFile file,
+			@Valid @RequestParam("imageName") String imageName, @Valid @RequestParam("firstName") String firstName,
+			@Valid @RequestParam("lastName") String lastName, @Valid @RequestParam("email") String email,
+			@Valid @RequestParam("phone") String phone, @Valid @RequestParam("username") String username,
+			@Valid @RequestParam("password") String password) throws Exception {
 
 		makeDirectoryIfNotExist(imageDirectory);
 		Path fileNamePath = Paths.get(imageDirectory,

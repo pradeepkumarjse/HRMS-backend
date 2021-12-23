@@ -1,10 +1,13 @@
 package com.realcoderz.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -16,7 +19,14 @@ public class Result {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
     private int id;
+	
+	@NotEmpty
+	@Size(min=5,max=50,message="user name should have at least 5 character")
+	@Column(name="user_name")	
     private String username;
+	
+	@NotEmpty
+	@Column(name="total_correct")
     private int totalCorrect;
     
     public Result() {

@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,7 +60,7 @@ public class QuestionController {
 	
 	
 	@PostMapping(produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
-	public ResponseEntity<Object> insertQuestion(@RequestPart("question") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
+	public ResponseEntity<Object> insertQuestion(@Valid @RequestPart("question") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
 		System.out.println("QuestionController.insertQuestion()");
 		makeDirectoryIfNotExist(imageDirectory);
 		Path fileNamePath = Paths.get(imageDirectory,
@@ -83,7 +85,7 @@ public class QuestionController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateQuestionById(@PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {	
+	public ResponseEntity<Object> updateQuestionById(@Valid @PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {	
 		Question question=questionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Question not found on : "+id));
 		question.setQuestion(ques.getQuestion());
 		question.setOp1(ques.getOp1());
