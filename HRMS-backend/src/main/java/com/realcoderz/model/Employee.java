@@ -12,6 +12,10 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="employee_table")
@@ -22,6 +26,8 @@ public class Employee {
 	@Column(name="id")
 	private Long e_id;
 	
+	@NotEmpty
+	@Size(min=2,message="employee name should have at lest 2 character")
 	@Column(name="name")
 	private String e_name;
 	
@@ -29,18 +35,29 @@ public class Employee {
 	@Column(name="date")
 	private Date e_date;
 	
+	
+	@Email
+	@NotEmpty
+	@Pattern(regexp="^(.+)@(.+)$")
 	@Column(name="email")
 	private String e_email;
 	
+	@Pattern(regexp="(^$|[0-9]{10})")
+	@Size(min=10,max=10,message="phone number should have at least 10 character")
 	@Column(name="mobile")
 	private String e_mobile;
+	
 	
 	@Column(name="gender")
 	private String e_gender;
 	
+	@NotEmpty
+	@Size(min=5,message="userid should have at least 5 character")
 	@Column(name="userid")
 	private String e_userid;
 	
+	@NotEmpty
+	@Size(min=5,message="password should have at lest 5 character")
 	@Column(name="password")
 	private String e_password;
 	

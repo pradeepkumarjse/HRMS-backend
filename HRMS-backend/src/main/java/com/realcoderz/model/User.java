@@ -17,10 +17,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,40 +52,56 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	//username should not be empty and have at lest 5 character
+  
 	
-
-	
-
+    @NotEmpty
+    @Size(min=5,message="Username should have at least 5 character")
 	@Column(name = "USER_NAME", unique = true)
 	private String userName;
 
+	//password should not be empty and have at lest 5 character
+
+    @NotEmpty
+    @Size(min=5,message="Password should have at least 5 character")
 	@Column(name = "USER_KEY")
 	private String password;
 
-
+    @Temporal(TemporalType.DATE)
 	@Column(name = "CREATED_ON")
-	private Date createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createdAt;
 
 	@Column(name = "UPDATED_ON")
 	private Date updatedAt;
 
+	@NotEmpty
+	@Size(min=2, message="firstName should have at least 2 character")
 	@Column(name = "first_name")
 	private String firstName;
 
 	@Column(name = "last_name")
 	private String lastName;
 
+	@Email
+	@Pattern(regexp="^(.+)@(.+)$")
+	@NotEmpty
 	@Column(name = "email")
 	private String email;
 
+	@NotEmpty
+	@Pattern(regexp="(^$|[0-9]{10})")
+	@Size(min=10,max=10,message="phone number should have at least 10 character")	
 	@Column(name = "phone_number")
 	private String phoneNumber;
 
+	
+	
 	@Column(name = "enabled")
 	private boolean enabled=true;
 	
-	@Column(name="profile_pic_path",length=200)	
 	
+	@Column(name="profile_pic_path",length=200)		
 	private String profilePicPath;
 
 		

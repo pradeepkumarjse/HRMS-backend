@@ -2,6 +2,8 @@ package com.realcoderz.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +62,7 @@ public class employeecontroller {
 	
 	
     @PostMapping("/employees")
-	public String addemployee(@RequestPart("emp") Employee emp, @RequestPart("file") MultipartFile file)
+	public String addemployee(@Valid @RequestPart("emp") Employee emp, @Valid @RequestPart("file") MultipartFile file)
 	{
 		System.out.print("push mapping");
     	return this.empservice.addemployee(emp,file);
@@ -70,7 +72,7 @@ public class employeecontroller {
     // update employee
     
     @PutMapping("/employees/{empid}")
-    public Employee updateemployee(@PathVariable  String empid, @RequestBody Employee emp) {
+    public Employee updateemployee(@Valid @PathVariable  String empid,@Valid @RequestBody Employee emp) {
     	System.out.println("employeecontroller.updateemployee()");
     	return this.empservice.updateemployee(Long.parseLong(empid),emp);
     }
@@ -98,7 +100,7 @@ public class employeecontroller {
     
 
     @PostMapping("/upload-file")	
-	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file, @RequestParam("username") String un)
+	public ResponseEntity<String> uploadfile(@Valid @RequestParam("image") MultipartFile file, @Valid @RequestParam("username") String un)
     {
     	System.out.println(un);
 		/*
@@ -119,14 +121,14 @@ public class employeecontroller {
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only jpeg content type allow");	
     	}
     	
-    	boolean f=fileupload.uploadfile(file);
+    	//boolean f=fileupload.uploadfile(file);
       
-    	if(f) {
-    	  return ResponseEntity.ok("file is successfully uploaded");
-    	  
-    	}
-    	
-    	
+//    	if(f) {
+//    	  return ResponseEntity.ok("file is successfully uploaded");
+//    	  
+//    	}
+//    	
+//    	
     	}
     	catch(Exception e) {
     		e.printStackTrace();
@@ -135,8 +137,8 @@ public class employeecontroller {
     	
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("!! something went wrong !!");
 	}
-
-
-
-
 }
+
+
+
+

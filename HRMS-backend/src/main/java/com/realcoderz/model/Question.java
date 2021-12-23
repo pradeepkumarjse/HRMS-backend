@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+
 
 @Entity
 @Table(name="OBJECTIVEQUESTION")
@@ -17,11 +21,38 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	//question should not be null or empty
+	//question should have at least 5 characters
+	
+	@Column(name="question", nullable=false)
+	@NotEmpty
+	@Size(min=5,message="Question should have at least 5 characters")
 	private String question;
+	
+	//All option should not be null or empty & should have at leat 1 character
+	
+	@NotEmpty
+	@Size(min=1,message="Option_1 should have at least 1 characters")
+	@Column(name="option_1")	
 	private String op1;
+	
+	@NotEmpty
+	@Size(min=1,message="Option_2 should have at least 1 characters")
+	@Column(name="option_2")
 	private String op2;
+	
+	@NotEmpty
+	@Size(min=1,message="Option_3 should have at least 1 characters")
+	@Column(name="option_3")
 	private String op3;
+	
+	@NotEmpty
+	@Size(min=1,message="Option_4 should have at least 1 characters")
+	@Column(name="option_4")
 	private String op4;	
+	
+	@Column(name="picture_path")
 	private String picPath;
 
 	
