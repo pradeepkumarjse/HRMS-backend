@@ -2,6 +2,8 @@ package com.realcoderz.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ import com.realcoderz.service.employeeservice;
 @CrossOrigin(origins = "http://localhost:3000")
 public class employeecontroller {
 	
+	private static final Logger logger= LoggerFactory.getLogger(employeecontroller.class);
+	
 	@Autowired
 	private employeeservice empservice;
 	
@@ -44,6 +48,7 @@ public class employeecontroller {
 	@GetMapping("/employees")
 	public List<Employee> getemployees() {
 		
+		logger.info("getemployees() called to get all employees from employeecontroller");
 		return this.empservice.getemployees();
 	}
 
@@ -52,6 +57,8 @@ public class employeecontroller {
 	
 	@GetMapping("/employees/{empid}")
 	public Employee getemployee(@PathVariable String empid) {
+		
+		logger.info("getemployees() called to  employee by id from  employeecontroller");
 	 
     return this.empservice.getemployee(Long.parseLong(empid));
     
@@ -63,7 +70,7 @@ public class employeecontroller {
     @PostMapping("/employees")
 	public String addemployee(@RequestPart("emp") Employee emp, @RequestPart("file") MultipartFile file)
 	{
-		System.out.print("push mapping");
+		logger.info("addemployee() called to add employees from  employeecontroller");
     	return this.empservice.addemployee(emp,file);
     	
 	}
@@ -72,7 +79,8 @@ public class employeecontroller {
     
     @PutMapping("/employees/{empid}")
     public Employee updateemployee(@PathVariable  String empid, @RequestBody Employee emp) {
-    	System.out.println("employeecontroller.updateemployee()");
+    	
+    	logger.info("updateemployee() called from  employeecontroller");
     	return this.empservice.updateemployee(Long.parseLong(empid),emp);
     }
     
@@ -80,16 +88,16 @@ public class employeecontroller {
     
     @DeleteMapping("/employees/{empid}")
     public ResponseEntity<HttpStatus> deleteemployee(@PathVariable String empid) {
-    	System.out.println("employeecontroller.deleteemployee()");
+    	logger.info("deleteemployee() called from employeecontroller");
     	try {
     		
     		this.empservice.deleteemployee(Long.parseLong(empid));
-    		
+    		logger.info("deleted successfully");
     		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	catch (Exception e) {
 			// TODO: handle exception
-    		
+    		logger.error("something went wrong in deleteemployee() in employeecontroller");
     		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     	

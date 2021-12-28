@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.security.spec.InvalidKeySpecException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +32,9 @@ import com.realcoderz.responses.UserInfo;
 @CrossOrigin("*")
 public class AuthenticationController {
 	
+	
+	private static final Logger  logger=LoggerFactory.getLogger(AuthenticationController.class);
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
@@ -42,6 +47,7 @@ public class AuthenticationController {
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidKeySpecException,NoSuchAlgorithmException{
 
+		logger.info("login() called from AuthenticationController");
 		final Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(), authenticationRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		User user=(User)authentication.getPrincipal();
@@ -56,6 +62,7 @@ public class AuthenticationController {
 	@GetMapping("/auth/userinfo")
 	public ResponseEntity<?> getUserInfo(Principal user){
 		
+		logger.info("getUserInfo() called  from AuthenticationController");
 		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());	
 		
 		UserInfo userInfo=new UserInfo();

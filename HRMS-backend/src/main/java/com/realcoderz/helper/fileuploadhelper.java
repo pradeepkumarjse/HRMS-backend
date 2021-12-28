@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +23,8 @@ import com.realcoderz.repository.employeerepository;
 @Component
 public class fileuploadhelper {
 
+	private static final Logger logger=LoggerFactory.getLogger(fileuploadhelper.class);
+	
 	@Autowired
 	private employeerepository emprepository;
 	
@@ -28,6 +32,7 @@ public class fileuploadhelper {
 
 	public boolean uploadfile(Employee emp,MultipartFile multipartfile)
 	{
+		logger.info("uploadfile() called from fileuploadhelper class");
 		boolean f=false;
 		
 		try {
@@ -40,7 +45,7 @@ public class fileuploadhelper {
 			   
 			  is.read(data );
 			  
-			  //write
+			  //write  
 			 
 			  FileOutputStream fos=new FileOutputStream(Upload_Dir+"\\"+multipartfile.getOriginalFilename());
 			  
@@ -52,6 +57,7 @@ public class fileuploadhelper {
 //			  
 			  
 			  emprepository.save(em);
+			  logger.info("Record Saved");
 			  
 			  fos.close(); 
 			  fos.flush();
@@ -65,6 +71,7 @@ public class fileuploadhelper {
 		}
 		catch(Exception e) 
 		{
+			logger.error("error occur in fileuploadhelper class");
 			e.printStackTrace();
 		}
 		

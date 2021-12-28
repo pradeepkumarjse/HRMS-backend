@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.realcoderz.model.Employee;
 
 
-
 public interface employeeservice {
 	
 	public List<Employee> getemployees();
