@@ -28,7 +28,7 @@ public class fileuploadhelper {
 	@Autowired
 	private employeerepository emprepository;
 	
-	public final String Upload_Dir="C:\\Users\\mohit\\Documents\\workspace-spring-tool-suite-4-4.12.0.RELEASE\\OnlineExam\\src\\main\\resources\\static\\image";
+	//public final String Upload_Dir="D:\\STS-workspace\\maven.1637736115752\\HRMS-backend\\src\\main\\resources\\static";
 
 	public boolean uploadfile(Employee emp,MultipartFile multipartfile)
 	{
@@ -47,9 +47,9 @@ public class fileuploadhelper {
 			  
 			  //write  
 			 
-			  FileOutputStream fos=new FileOutputStream(Upload_Dir+"\\"+multipartfile.getOriginalFilename());
+			  //FileOutputStream fos=new FileOutputStream(Upload_Dir+"\\"+multipartfile.getOriginalFilename());
 			  
-			  fos.write(data); 
+			 // fos.write(data); 
 			  
 			  Employee em=new Employee();
 			  em=emp;
@@ -59,8 +59,8 @@ public class fileuploadhelper {
 			  emprepository.save(em);
 			  logger.info("Record Saved");
 			  
-			  fos.close(); 
-			  fos.flush();
+			  //fos.close(); 
+			  //fos.flush();
 			 
 			
 //			Files.copy(multipartfile.getInputStream(), Paths.get(Upload_Dir+File.separator+multipartfile.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);	

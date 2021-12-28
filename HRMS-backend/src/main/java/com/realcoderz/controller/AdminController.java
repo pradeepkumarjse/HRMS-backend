@@ -2,8 +2,13 @@ package com.realcoderz.controller;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+=======
+import javax.validation.Valid;
+
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,7 +59,7 @@ public class AdminController {
 	// inserting new admin
 	
     @PostMapping("/admin")
-	public Admin addadmin(@RequestBody Admin emp)
+	public Admin addadmin(@Valid @RequestBody Admin emp)
 	{
     	logger.info("addadmin() called from AdminController");
 		return this.empservice.addadmin(emp);

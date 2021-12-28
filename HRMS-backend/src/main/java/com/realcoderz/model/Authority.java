@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -13,10 +14,13 @@ import org.springframework.security.core.GrantedAuthority;
 @Entity
 public class Authority implements GrantedAuthority {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
 	@Column(name = "ROLE_CODE")
 	private String roleCode;
 	

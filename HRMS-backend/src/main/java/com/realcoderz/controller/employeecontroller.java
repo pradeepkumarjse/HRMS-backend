@@ -2,8 +2,13 @@ package com.realcoderz.controller;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+=======
+import javax.validation.Valid;
+
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +48,6 @@ public class employeecontroller {
 	return "index"; 
 	}
 
-	// get all employee details
 	
 	@GetMapping("/employees")
 	public List<Employee> getemployees() {
@@ -68,19 +72,28 @@ public class employeecontroller {
 	
 	
     @PostMapping("/employees")
-	public String addemployee(@RequestPart("emp") Employee emp, @RequestPart("file") MultipartFile file)
+	public String addemployee(@Valid @RequestPart("emp") Employee emp, @Valid @RequestPart("file") MultipartFile file)
 	{
 		logger.info("addemployee() called to add employees from  employeecontroller");
     	return this.empservice.addemployee(emp,file);
     	
 	}
     
+    
+    
+    
+    
     // update employee
     
     @PutMapping("/employees/{empid}")
+<<<<<<< HEAD
     public Employee updateemployee(@PathVariable  String empid, @RequestBody Employee emp) {
     	
     	logger.info("updateemployee() called from  employeecontroller");
+=======
+    public Employee updateemployee(@Valid @PathVariable  String empid,@Valid @RequestBody Employee emp) {
+    	System.out.println("employeecontroller.updateemployee()");
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
     	return this.empservice.updateemployee(Long.parseLong(empid),emp);
     }
     
@@ -105,46 +118,47 @@ public class employeecontroller {
    	
     }
     
-    // image upload
-    
-//    @PostMapping("/upload-file")	
-//	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file)
-//    {
-//		/*
-//		 * System.out.println(file.getOriginalFilename());
-//		 * System.out.println(file.getSize());
-//		 * System.out.println(file.getContentType());
-//		 * System.out.println(file.getName());
-//		 */
-//    	try {
-//    	
-//    	if(file.isEmpty())
-//    	{
-//    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must Contains file");
-//    	}
-//    	
-//    	if(!file.getContentType().equals("image/jpeg"))
-//    	{
-//    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only jpeg content type allow");	
-//    	}
-//    	
-//    	boolean f=fileupload.uploadfile(file);
-//      
+
+    @PostMapping("/upload-file")	
+	public ResponseEntity<String> uploadfile(@Valid @RequestParam("image") MultipartFile file, @Valid @RequestParam("username") String un)
+    {
+    	System.out.println(un);
+		/*
+		 * System.out.println(file.getOriginalFilename());
+		 * System.out.println(file.getSize());
+		 * System.out.println(file.getContentType());
+		 * System.out.println(file.getName());
+		 */
+    	try {
+    	
+    	if(file.isEmpty())
+    	{
+    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Must Contains file");
+    	}
+    	
+    	if(!file.getContentType().equals("image/jpeg"))
+    	{
+    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only jpeg content type allow");	
+    	}
+    	
+    	//boolean f=fileupload.uploadfile(file);
+      
 //    	if(f) {
 //    	  return ResponseEntity.ok("file is successfully uploaded");
 //    	  
 //    	}
 //    	
 //    	
-//    	}
-//    	catch(Exception e) {
-//    		e.printStackTrace();
-//    	}
-//    	
-//    	
-//		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("!! something went wrong !!");
-//	}
-
-
-
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("!! something went wrong !!");
+	}
 }
+
+
+
+

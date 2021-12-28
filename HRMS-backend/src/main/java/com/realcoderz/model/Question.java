@@ -3,11 +3,16 @@ package com.realcoderz.model;
 import java.util.List;
 import java.util.stream.Collector;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+
 
 @Entity
 @Table(name="OBJECTIVEQUESTION")
@@ -16,11 +21,49 @@ public class Question {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	//question should not be null or empty
+	//question should have at least 5 characters
+	
+	@Column(name="question", nullable=false)
+	@NotEmpty
+	@Size(min=5,message="Question should have at least 5 characters")
 	private String question;
+	
+	//All option should not be null or empty & should have at leat 1 character
+	
+	@NotEmpty
+	@Size(min=1,message="Option_1 should have at least 1 characters")
+	@Column(name="op1")	
 	private String op1;
+	
+	@NotEmpty
+	@Size(min=1,message="Option_2 should have at least 1 characters")
+	@Column(name="op2")
 	private String op2;
+	
+	@NotEmpty
+	@Size(min=1,message="Option_3 should have at least 1 characters")
+	@Column(name="op3")
 	private String op3;
+	
+	@NotEmpty
+	@Size(min=1,message="Option_4 should have at least 1 characters")
+	@Column(name="op4")
 	private String op4;	
+	
+	@Column(name="pic_path")
+	private String picPath;
+
+	
+	public String getPicPath() {
+		return picPath;
+	}
+
+	public void setPicPath(String picPath) {
+		this.picPath = picPath;
+	}
+
 	 
 	private int ans_option;
 	

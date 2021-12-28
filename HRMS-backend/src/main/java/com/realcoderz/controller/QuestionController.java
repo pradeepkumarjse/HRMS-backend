@@ -1,15 +1,26 @@
 package com.realcoderz.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+=======
+import javax.validation.Valid;
+
+import org.apache.commons.io.FilenameUtils;
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,25 +30,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.realcoderz.exception.ResourceNotFoundException;
 import com.realcoderz.model.Question;
-import com.realcoderz.model.QuestionForm;
-import com.realcoderz.model.Result;
 import com.realcoderz.repository.IQuestionRepository;
-import com.realcoderz.service.impl.QuizServiceImpl;
 
 
 @RestController
 @RequestMapping("/api/v1/questions")
-//@CrossOrigin(origins= "http://localhost:3000")
-@CrossOrigin("*")
+@CrossOrigin(origins= "http://localhost:3000")
+
 public class QuestionController {
 	
 	private static final Logger logger=LoggerFactory.getLogger(QuestionController.class);
 
+	private static final String imageDirectory = System.getProperty("user.dir") + "/src/main/webapp/images/question";
+
+	
 	@Autowired
 	private IQuestionRepository questionRepository;
 
@@ -55,6 +67,7 @@ public class QuestionController {
 		 return ResponseEntity.ok().body(question);
 	}
 	
+<<<<<<< HEAD
 	@PostMapping
 	public ResponseEntity<Object> insertQuestion(@RequestBody Question ques) {
 		
@@ -62,12 +75,66 @@ public class QuestionController {
 		questionRepository.save(ques);
 		logger.warn("question inserted successfull");
 		return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
+=======
+	
+	/*
+	
+	@PostMapping(produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
+	public ResponseEntity<Question> insertQuestion(@Valid @RequestPart("question") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
+		System.out.println("QuestionController.insertQuestion()");
+		makeDirectoryIfNotExist(imageDirectory);
+		Path fileNamePath = Paths.get(imageDirectory,
+				imageName.concat(".").concat(FilenameUtils.getExtension(file.getOriginalFilename())));
+     
+		
+		Question q=ques;
+		q.setPicPath("http://localhost:4041/images/question/" + imageName + ".png");
+		questionRepository.save(q);
+		
+		
+		try {
+			Files.write(fileNamePath, file.getBytes());
+			return new ResponseEntity<Question>(HttpStatus.CREATED);
+		} catch (IOException ie) {
+			ie.printStackTrace();
+			return new ResponseEntity<Question>(HttpStatus.BAD_REQUEST);
+		}	
+	}
+	*/
+	
+	
+
+	@PostMapping
+	public ResponseEntity<Question> insertQuestion(@Valid @RequestBody Question ques) {
+			
+		Question q=ques;	
+		
+		try {
+			questionRepository.save(q);
+			return new ResponseEntity<Question>(HttpStatus.CREATED);
+		} catch (Exception ie) {
+			ie.printStackTrace();
+			return new ResponseEntity<Question>(HttpStatus.BAD_REQUEST);
+		}	
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	@PutMapping("/{id}")
+<<<<<<< HEAD
 	public ResponseEntity<Object> updateQuestionById(@PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {
 		
 		logger.info("updateQuestionById() called from QuestionController");
+=======
+	public ResponseEntity<Object> updateQuestionById(@Valid @PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {	
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 		Question question=questionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Question not found on : "+id));
 		question.setQuestion(ques.getQuestion());
 		question.setOp1(ques.getOp1());
@@ -94,6 +161,12 @@ public class QuestionController {
 	}
 	
 
+	private void makeDirectoryIfNotExist(String imageDirectory) {
+		File directory = new File(imageDirectory);
+		if (!directory.exists()) {
+			directory.mkdir();
+		}
+	}
 
 	
 	
