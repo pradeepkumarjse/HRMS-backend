@@ -34,25 +34,25 @@ public class Question {
 	
 	@NotEmpty
 	@Size(min=1,message="Option_1 should have at least 1 characters")
-	@Column(name="option_1")	
+	@Column(name="op1")	
 	private String op1;
 	
 	@NotEmpty
 	@Size(min=1,message="Option_2 should have at least 1 characters")
-	@Column(name="option_2")
+	@Column(name="op2")
 	private String op2;
 	
 	@NotEmpty
 	@Size(min=1,message="Option_3 should have at least 1 characters")
-	@Column(name="option_3")
+	@Column(name="op3")
 	private String op3;
 	
 	@NotEmpty
 	@Size(min=1,message="Option_4 should have at least 1 characters")
-	@Column(name="option_4")
+	@Column(name="op4")
 	private String op4;	
 	
-	@Column(name="picture_path")
+	@Column(name="pic_path")
 	private String picPath;
 
 	

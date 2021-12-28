@@ -59,8 +59,10 @@ public class QuestionController {
 	}
 	
 	
+	/*
+	
 	@PostMapping(produces = { MediaType.IMAGE_PNG_VALUE, "application/json" })
-	public ResponseEntity<Object> insertQuestion(@Valid @RequestPart("question") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
+	public ResponseEntity<Question> insertQuestion(@Valid @RequestPart("question") Question ques,@RequestParam("imageName") String imageName,@RequestParam("imageFile") MultipartFile file) {
 		System.out.println("QuestionController.insertQuestion()");
 		makeDirectoryIfNotExist(imageDirectory);
 		Path fileNamePath = Paths.get(imageDirectory,
@@ -74,15 +76,37 @@ public class QuestionController {
 		
 		try {
 			Files.write(fileNamePath, file.getBytes());
-			return new ResponseEntity<>("Question added successfully", HttpStatus.CREATED);
+			return new ResponseEntity<Question>(HttpStatus.CREATED);
 		} catch (IOException ie) {
 			ie.printStackTrace();
-			return new ResponseEntity<>("Question is not added", HttpStatus.BAD_REQUEST);
-		}
-
-		
-		
+			return new ResponseEntity<Question>(HttpStatus.BAD_REQUEST);
+		}	
 	}
+	*/
+	
+	
+
+	@PostMapping
+	public ResponseEntity<Question> insertQuestion(@Valid @RequestBody Question ques) {
+			
+		Question q=ques;	
+		
+		try {
+			questionRepository.save(q);
+			return new ResponseEntity<Question>(HttpStatus.CREATED);
+		} catch (Exception ie) {
+			ie.printStackTrace();
+			return new ResponseEntity<Question>(HttpStatus.BAD_REQUEST);
+		}	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateQuestionById(@Valid @PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {	
