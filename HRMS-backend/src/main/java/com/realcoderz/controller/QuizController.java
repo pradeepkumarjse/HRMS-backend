@@ -4,8 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+=======
 import javax.validation.Valid;
 
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +32,8 @@ import com.realcoderz.service.IQuizService;
 @RequestMapping("/api/v1/quiz")
 @CrossOrigin("*")
 public class QuizController {
+	
+	private static final Logger logger=LoggerFactory.getLogger(QuizController.class);
 
 	@Autowired
 	private Result result;
@@ -40,7 +47,13 @@ public class QuizController {
 	Boolean submitted = false;
 
 	@PostMapping("/start/{username}")
+<<<<<<< HEAD
+	public QuestionForm quiz(@PathVariable("username") String username) {
+		
+		logger.info("quiz() called from QuizController");
+=======
 	public QuestionForm quiz(@Valid @PathVariable("username") String username) {
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 		if (username.equals("")) {
 			return null;
 		}
@@ -52,11 +65,25 @@ public class QuizController {
 
 	
 	
+<<<<<<< HEAD
+	@ModelAttribute("result")
+	public Result getResult() {
+		logger.debug("getResult() called from QuizController");
+		return result;
+	}
+
+	
+	
+	@PostMapping("/submit")
+	public Map<String, Integer> submit(@RequestBody QuestionForm qForm) {
+		logger.debug("submit() called from QuizController");
+=======
 	
 	
 	
 	@PostMapping("/submit")
 	public Map<String, Integer> submit(@Valid @RequestBody QuestionForm qForm) {
+>>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 		if (!submitted) {
 			result.setTotalCorrect(qService.getResult(qForm));
 			qService.saveScore(result);
@@ -70,6 +97,7 @@ public class QuizController {
 	
 	@GetMapping("/score")
 	public List<Result> score() {
+		logger.debug("score() called from QuizController");
 		List<Result> sList = qService.getTopScore();		
 		return sList;
 	}
@@ -77,6 +105,7 @@ public class QuizController {
 	
 	@DeleteMapping("/delete-user-score/{id}")
 	public Map<String,Boolean> deleteUserScore(@PathVariable("id") int id) throws Exception{
+		logger.debug("deleteUserScore() called from QuizController");
 		Result result=resultRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Result not found on ::"+id));
 		resultRepo.delete(result);
 		Map<String,Boolean> response=new HashMap<>();

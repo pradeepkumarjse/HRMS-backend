@@ -69,7 +69,7 @@ public class Employee {
 	
 	@Column(name="address")
 	private String address;
-	
+	 
 	@Lob
 	private byte[] image;
 	
