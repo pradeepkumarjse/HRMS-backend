@@ -5,6 +5,8 @@ import java.security.Principal;
 import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +34,9 @@ import com.realcoderz.service.IUserService;
 @CrossOrigin("*")
 public class AuthenticationController {
 	
+	
+	private static final Logger  logger=LoggerFactory.getLogger(AuthenticationController.class);
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
@@ -44,6 +49,7 @@ public class AuthenticationController {
 	@PostMapping("/auth/login")
 	public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidKeySpecException,NoSuchAlgorithmException{
 
+		logger.info("login() called from AuthenticationController");
 		final Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUserName(), authenticationRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		User user=(User)authentication.getPrincipal();
@@ -58,15 +64,19 @@ public class AuthenticationController {
 	@GetMapping("/auth/userinfo")
 	public ResponseEntity<?> getUserInfo(Principal principle){
 		
+
+		logger.info("getUserInfo() called  from AuthenticationController");
 		User userObj=(User) userDetailsService.loadUserByUsername(principle.getName());	
 		
-		User userInfo=new User();		
+		UserInfo userInfo=new UserInfo();
+		
+				
 		userInfo.setFirstName(userObj.getFirstName());
 		userInfo.setLastName(userObj.getLastName());
 		userInfo.setUserName(userObj.getUsername());
 		userInfo.setProfilePicPath(userObj.getProfilePicPath());
 		
-		userInfo.setAuthorities((List<Authority>) userObj.getAuthorities());
+		userInfo.setRoles(userObj.getAuthorities().toArray());
 		
 		return ResponseEntity.ok(userInfo);
 		
