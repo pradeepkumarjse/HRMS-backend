@@ -9,14 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-=======
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,8 +39,6 @@ import com.realcoderz.repository.IQuestionRepository;
 @CrossOrigin(origins= "http://localhost:3000")
 
 public class QuestionController {
-	
-	private static final Logger logger=LoggerFactory.getLogger(QuestionController.class);
 
 	private static final String imageDirectory = System.getProperty("user.dir") + "/src/main/webapp/images/question";
 
@@ -56,26 +49,15 @@ public class QuestionController {
 	
 	@GetMapping
 	public List<Question> getallQuestions() {
-		logger.info("getallQuestions() called from QuestionController");
 		 return questionRepository.findAll();
 	}    
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Question> getQuestionById(@PathVariable("id") int id) throws ResourceNotFoundException {
-		logger.info("getQuestionById() called from QuestionController");
 		Question question= questionRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Question no found on ::"+id));
 		 return ResponseEntity.ok().body(question);
 	}
 	
-<<<<<<< HEAD
-	@PostMapping
-	public ResponseEntity<Object> insertQuestion(@RequestBody Question ques) {
-		
-		logger.info("insertQuestion() called from QuestionController");
-		questionRepository.save(ques);
-		logger.warn("question inserted successfull");
-		return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
-=======
 	
 	/*
 	
@@ -116,7 +98,6 @@ public class QuestionController {
 			ie.printStackTrace();
 			return new ResponseEntity<Question>(HttpStatus.BAD_REQUEST);
 		}	
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 	}
 	
 	
@@ -128,13 +109,7 @@ public class QuestionController {
 	
 	
 	@PutMapping("/{id}")
-<<<<<<< HEAD
-	public ResponseEntity<Object> updateQuestionById(@PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {
-		
-		logger.info("updateQuestionById() called from QuestionController");
-=======
 	public ResponseEntity<Object> updateQuestionById(@Valid @PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {	
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 		Question question=questionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Question not found on : "+id));
 		question.setQuestion(ques.getQuestion());
 		question.setOp1(ques.getOp1());
@@ -142,8 +117,7 @@ public class QuestionController {
 		question.setOp3(ques.getOp3());
 		question.setOp4(ques.getOp4());
 		question.setAns_option(ques.getAns_option());		
-		final Question updatedQuestion=questionRepository.save(question);
-		logger.warn("question update successfully");
+		final Question updatedQuestion=questionRepository.save(question);		
 		return ResponseEntity.ok(updatedQuestion);
 	}
 	
@@ -152,7 +126,6 @@ public class QuestionController {
 	
 	@DeleteMapping("/{id}")
 	public Map<String,Boolean> deleteById(@PathVariable("id") int id) throws Exception {
-		logger.info("deleteById() called from QuestionController");
 		Question question=questionRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Question not found on ::"+id));
 		questionRepository.delete(question);		
 		Map<String,Boolean> response=new HashMap<>();

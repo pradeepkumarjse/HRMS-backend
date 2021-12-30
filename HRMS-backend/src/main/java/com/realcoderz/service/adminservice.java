@@ -2,18 +2,23 @@ package com.realcoderz.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.realcoderz.model.Admin;
+
 
 public interface adminservice {
 	
 public List<Admin> getadmin();
 	
-	public Admin getadmin(Long empid);
+	public Admin getadmin(Long adminid);
 	
-	public Admin addadmin(Admin emp);
+	public String addadmin(Admin admin,MultipartFile file);
 	
-	public Admin updateadmin(Long empid,Admin emp);
+	public Admin updateadmin(Long admid,Admin admin);
 	
-	public Admin deleteadmin(Long empid);
+	public Admin deleteadmin(Long adminid);
+
+
 
 }
