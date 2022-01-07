@@ -73,6 +73,7 @@ public class QuestionControllerTest {
 		
 	}
 	
+	
 	@Test
 	public void testUpdateQuestion() {
 		int id=78;
@@ -86,6 +87,7 @@ public class QuestionControllerTest {
 		Question updatedUser=restTemplate.getForObject(getRootUrl()+"/api/v1/questions/"+id, Question.class);
 	    Assert.assertNotNull(updatedUser);
 	}
+	
 	
 	@Test
 	public void testDeleteQuestion() {

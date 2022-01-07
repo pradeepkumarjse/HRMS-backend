@@ -9,14 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-=======
+
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -67,15 +66,7 @@ public class QuestionController {
 		 return ResponseEntity.ok().body(question);
 	}
 	
-<<<<<<< HEAD
-	@PostMapping
-	public ResponseEntity<Object> insertQuestion(@RequestBody Question ques) {
-		
-		logger.info("insertQuestion() called from QuestionController");
-		questionRepository.save(ques);
-		logger.warn("question inserted successfull");
-		return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
-=======
+
 	
 	/*
 	
@@ -106,17 +97,19 @@ public class QuestionController {
 
 	@PostMapping
 	public ResponseEntity<Question> insertQuestion(@Valid @RequestBody Question ques) {
-			
+		logger.info("insertQuestion() called from QuestionController");
+
 		Question q=ques;	
 		
 		try {
 			questionRepository.save(q);
+			logger.warn("question inserted successfull");
+
 			return new ResponseEntity<Question>(HttpStatus.CREATED);
 		} catch (Exception ie) {
 			ie.printStackTrace();
 			return new ResponseEntity<Question>(HttpStatus.BAD_REQUEST);
 		}	
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 	}
 	
 	
@@ -128,13 +121,9 @@ public class QuestionController {
 	
 	
 	@PutMapping("/{id}")
-<<<<<<< HEAD
-	public ResponseEntity<Object> updateQuestionById(@PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {
-		
-		logger.info("updateQuestionById() called from QuestionController");
-=======
 	public ResponseEntity<Object> updateQuestionById(@Valid @PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {	
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
+		logger.info("updateQuestionById() called from QuestionController");
+
 		Question question=questionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Question not found on : "+id));
 		question.setQuestion(ques.getQuestion());
 		question.setOp1(ques.getOp1());

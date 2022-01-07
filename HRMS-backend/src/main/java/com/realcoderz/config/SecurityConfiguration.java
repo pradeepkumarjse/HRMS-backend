@@ -83,11 +83,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests().antMatchers("/api/v1/user/register","/api/v1/auth/**","/images/**","/**").permitAll()
 				
-				
-		.antMatchers("/api/v1/quiz/score").authenticated()
+		.antMatchers("/api/v1/quiz/**").hasAnyRole("User")
+		
+		//.antMatchers("/api/v1/quiz/score").authenticated()
 		
 				
-	     .antMatchers(HttpMethod.OPTIONS,"/api/v1/questions/**").permitAll()
+	     //.antMatchers("/api/v1/questions/**").hasAnyRole("User")
 		  
 		
 		

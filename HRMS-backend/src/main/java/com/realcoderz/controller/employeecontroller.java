@@ -2,13 +2,12 @@ package com.realcoderz.controller;
 
 import java.util.List;
 
-<<<<<<< HEAD
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-=======
+
 import javax.validation.Valid;
 
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -86,14 +84,10 @@ public class employeecontroller {
     // update employee
     
     @PutMapping("/employees/{empid}")
-<<<<<<< HEAD
-    public Employee updateemployee(@PathVariable  String empid, @RequestBody Employee emp) {
-    	
-    	logger.info("updateemployee() called from  employeecontroller");
-=======
     public Employee updateemployee(@Valid @PathVariable  String empid,@Valid @RequestBody Employee emp) {
-    	System.out.println("employeecontroller.updateemployee()");
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
+    	logger.info("updateemployee() called from  employeecontroller");
+
+
     	return this.empservice.updateemployee(Long.parseLong(empid),emp);
     }
     

@@ -22,10 +22,10 @@ public class Result {
 	
 	@NotEmpty
 	@Size(min=5,max=50,message="user name should have at least 5 character")
-	@Column(name="user_name")	
+	@Column(name="username")	
     private String username;
 	
-	@NotEmpty
+	
 	@Column(name="total_correct")
     private int totalCorrect;
     
