@@ -66,20 +66,26 @@ public class AuthenticationController {
 		
 
 		logger.info("getUserInfo() called  from AuthenticationController");
+
 //		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());	
 //		
 //		UserInfo userInfo=new UserInfo();
 
 		User userObj=(User) userDetailsService.loadUserByUsername(principle.getName());	
 
+
+		User userObj=(User) userDetailsService.loadUserByUsername(principle.getName());	
 		
-		User userInfo=new User();		
+		UserInfo userInfo=new UserInfo();
+
+		
+				
 		userInfo.setFirstName(userObj.getFirstName());
 		userInfo.setLastName(userObj.getLastName());
 		userInfo.setUserName(userObj.getUsername());
 		userInfo.setProfilePicPath(userObj.getProfilePicPath());
 		
-		userInfo.setAuthorities((List<Authority>) userObj.getAuthorities());
+		userInfo.setRoles(userObj.getAuthorities().toArray());
 		
 		return ResponseEntity.ok(userInfo);
 		
@@ -87,3 +93,4 @@ public class AuthenticationController {
 	}
 
 }
+
