@@ -66,9 +66,12 @@ public class AuthenticationController {
 		
 
 		logger.info("getUserInfo() called  from AuthenticationController");
+
 		User userObj=(User) userDetailsService.loadUserByUsername(principle.getName());	
 		
 		UserInfo userInfo=new UserInfo();
+
+
 		
 				
 		userInfo.setFirstName(userObj.getFirstName());
@@ -84,3 +87,4 @@ public class AuthenticationController {
 	}
 
 }
+

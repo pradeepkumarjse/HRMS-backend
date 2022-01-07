@@ -15,7 +15,7 @@ public interface employeeservice {
 	
 	public String addemployee(Employee emp,MultipartFile file);
 	
-	public Employee updateemployee(Long empid,Employee emp);
+	public Employee updateemployee(Long empid,Employee emp,MultipartFile file);
 	
 	public Employee deleteemployee(Long empid);
 

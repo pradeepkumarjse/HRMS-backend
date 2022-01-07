@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -67,6 +68,16 @@ public class QuestionController {
 	}
 	
 
+
+//	@PostMapping
+//	public ResponseEntity<Object> insertQuestion(@RequestBody Question ques) {
+//		
+//		logger.info("insertQuestion() called from QuestionController");
+//		questionRepository.save(ques);
+//		logger.warn("question inserted successfull");
+//		return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
+//	}
+
 	
 	/*
 	
@@ -92,6 +103,7 @@ public class QuestionController {
 		}	
 	}
 	*/
+
 	
 	
 
@@ -120,10 +132,15 @@ public class QuestionController {
 	
 	
 	
+	
+		
+	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateQuestionById(@Valid @PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {	
+	public ResponseEntity<Object> updateQuestionById(@PathVariable("id") int id, @RequestBody Question ques) throws ResourceNotFoundException {
+		
 		logger.info("updateQuestionById() called from QuestionController");
 
+	
 		Question question=questionRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Question not found on : "+id));
 		question.setQuestion(ques.getQuestion());
 		question.setOp1(ques.getOp1());

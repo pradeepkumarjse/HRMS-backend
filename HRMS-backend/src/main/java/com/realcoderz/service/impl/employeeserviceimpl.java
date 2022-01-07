@@ -69,15 +69,18 @@ public class employeeserviceimpl implements employeeservice {
 	//update employee
 	
 	@Override
-	public Employee updateemployee(Long empid,Employee emp) {
+	public Employee updateemployee(Long empid,Employee emp,MultipartFile file) {
 		
 		logger.info("updateemployee() called of employeeserviceimpl class");
+		
 		Optional<Employee>	empp= emprepository.findById(empid);
 		
 		if(empp.isPresent())
 		{
+			logger.info("Inside if condition");
 			
-			emprepository.save(emp);
+			boolean b=fileuploadhelper.uploadfile(emp,file);
+			//emprepository.save(emp);
 			logger.info("Value updated successfully");
 		}
 		 

@@ -8,7 +8,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,10 +47,13 @@ public class QuizController {
 
 	Boolean submitted = false;
 
+
 	@PostMapping("/start/{username}")	
 	public QuestionForm quiz(@Valid @PathVariable("username") String username) {
-	logger.info("quiz() called from QuizController");
+		logger.info("quiz() called from QuizController");
 
+
+	
 		if (username.equals("")) {
 			return null;
 		}
@@ -69,11 +74,13 @@ public class QuizController {
 
 	
 	
+
 		
 	
 	
 	@PostMapping("/submit")
 	public Map<String, Integer> submit(@Valid @RequestBody QuestionForm qForm) {
+
 		logger.debug("submit() called from QuizController");
 
 		if (!submitted) {

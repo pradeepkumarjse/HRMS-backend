@@ -1,12 +1,14 @@
 package com.realcoderz.controller;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.condition.ConsumesRequestCondition;
 
 import com.realcoderz.helper.fileuploadhelper;
 import com.realcoderz.model.Employee;
@@ -68,27 +71,24 @@ public class employeecontroller {
 	
 	// inserting new employee
 	
-	
     @PostMapping("/employees")
-	public String addemployee(@Valid @RequestPart("emp") Employee emp, @Valid @RequestPart("file") MultipartFile file)
+	public String addemployee(@Valid @RequestPart("emp") Employee emp , @Valid @RequestPart("file") MultipartFile file )
 	{
 		logger.info("addemployee() called to add employees from  employeecontroller");
     	return this.empservice.addemployee(emp,file);
-    	
+   	
 	}
-    
-    
-    
-    
     
     // update employee
     
     @PutMapping("/employees/{empid}")
-    public Employee updateemployee(@Valid @PathVariable  String empid,@Valid @RequestBody Employee emp) {
+    
+    public Employee updateemployee(@PathVariable  String empid,@Valid @RequestPart("emp") Employee emp ,@Valid  @RequestPart("file") MultipartFile file) {
+    	
     	logger.info("updateemployee() called from  employeecontroller");
 
+    	return this.empservice.updateemployee(Long.parseLong(empid),emp,file);
 
-    	return this.empservice.updateemployee(Long.parseLong(empid),emp);
     }
     
    // delete employee
