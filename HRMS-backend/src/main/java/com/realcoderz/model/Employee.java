@@ -26,7 +26,7 @@ public class Employee {
 	@Column(name="id")
 	private Long e_id;
 	
-	@NotEmpty
+	
 	@Size(min=2,message="employee name should have at lest 2 character")
 	@Column(name="name")
 	private String e_name;
@@ -36,9 +36,8 @@ public class Employee {
 	private Date e_date;
 	
 	
-	@Email
-	@NotEmpty
-	@Pattern(regexp="^(.+)@(.+)$")
+//	@Email
+//	@Pattern(regexp="^(.+)@(.+)$")
 	@Column(name="email")
 	private String e_email;
 	
@@ -51,12 +50,10 @@ public class Employee {
 	@Column(name="gender")
 	private String e_gender;
 	
-	@NotEmpty
 	@Size(min=5,message="userid should have at least 5 character")
 	@Column(name="userid")
 	private String e_userid;
 	
-	@NotEmpty
 	@Size(min=5,message="password should have at lest 5 character")
 	@Column(name="password")
 	private String e_password;
