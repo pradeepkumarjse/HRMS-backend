@@ -1,14 +1,14 @@
 package com.realcoderz.controller;
 
 import java.util.List;
+import java.util.function.Consumer;
 
-<<<<<<< HEAD
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-=======
+
 import javax.validation.Valid;
 
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.condition.ConsumesRequestCondition;
 
 import com.realcoderz.helper.fileuploadhelper;
 import com.realcoderz.model.Employee;
@@ -70,31 +71,23 @@ public class employeecontroller {
 	
 	// inserting new employee
 	
-	
     @PostMapping("/employees")
-	public String addemployee(@Valid @RequestPart("emp") Employee emp, @Valid @RequestPart("file") MultipartFile file)
+	public String addemployee(@Valid @RequestPart("emp") Employee emp , @Valid @RequestPart("file") MultipartFile file )
 	{
 		logger.info("addemployee() called to add employees from  employeecontroller");
     	return this.empservice.addemployee(emp,file);
-    	
+   	
 	}
-    
-    
-    
-    
     
     // update employee
     
     @PutMapping("/employees/{empid}")
-<<<<<<< HEAD
-    public Employee updateemployee(@PathVariable  String empid, @RequestBody Employee emp) {
+
+    public Employee updateemployee(@PathVariable  String empid,@Valid @RequestPart("emp") Employee emp ,@Valid  @RequestPart("file") MultipartFile file) {
     	
     	logger.info("updateemployee() called from  employeecontroller");
-=======
-    public Employee updateemployee(@Valid @PathVariable  String empid,@Valid @RequestBody Employee emp) {
-    	System.out.println("employeecontroller.updateemployee()");
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
-    	return this.empservice.updateemployee(Long.parseLong(empid),emp);
+
+    	return this.empservice.updateemployee(Long.parseLong(empid),emp,file);
     }
     
    // delete employee

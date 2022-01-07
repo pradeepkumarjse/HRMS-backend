@@ -64,14 +64,14 @@ public class AuthenticationController {
 	@GetMapping("/auth/userinfo")
 	public ResponseEntity<?> getUserInfo(Principal principle){
 		
-<<<<<<< HEAD
+
 		logger.info("getUserInfo() called  from AuthenticationController");
-		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());	
-		
-		UserInfo userInfo=new UserInfo();
-=======
+//		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());	
+//		
+//		UserInfo userInfo=new UserInfo();
+
 		User userObj=(User) userDetailsService.loadUserByUsername(principle.getName());	
->>>>>>> ba52c040169e95a30f4f4b0a31f4d60e499408c2
+
 		
 		User userInfo=new User();		
 		userInfo.setFirstName(userObj.getFirstName());
