@@ -1,20 +1,14 @@
 package com.realcoderz;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.realcoderz.model.Authority;
-import com.realcoderz.model.User;
 import com.realcoderz.repository.UserDetailsRepository;
 
 @SpringBootApplication
+ 	
 public class HumanResourceManagementSystemApplication {
 
 	@Autowired

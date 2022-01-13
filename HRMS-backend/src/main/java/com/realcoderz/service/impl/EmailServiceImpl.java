@@ -88,7 +88,7 @@ public class EmailServiceImpl implements EmailService {
 			
 				// code for attaching file and text both
 				
-				String path="C:\\Users\\mohit\\Desktop\\companylogo.png";
+				String path="D:\\HRMS-backend\\company_logo.png";
 				
 				MimeMultipart mimemultipart=new MimeMultipart();
 				
