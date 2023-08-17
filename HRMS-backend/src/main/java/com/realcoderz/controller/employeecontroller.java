@@ -1,6 +1,13 @@
 package com.realcoderz.controller;
 
 import java.util.List;
+import java.util.function.Consumer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,19 +22,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.condition.ConsumesRequestCondition;
 
 import com.realcoderz.helper.fileuploadhelper;
 import com.realcoderz.model.Employee;
 import com.realcoderz.service.employeeservice;
 
-
-
 @RestController
 @RequestMapping("/realcoder/api")
 @CrossOrigin(origins = "http://localhost:3000")
 public class employeecontroller {
+	
+	private static final Logger logger= LoggerFactory.getLogger(employeecontroller.class);
 	
 	@Autowired
 	private employeeservice empservice;
@@ -40,11 +49,11 @@ public class employeecontroller {
 	return "index"; 
 	}
 
-	// get all employee details
 	
 	@GetMapping("/employees")
 	public List<Employee> getemployees() {
 		
+		logger.info("getemployees() called to get all employees from employeecontroller");
 		return this.empservice.getemployees();
 	}
 
@@ -53,6 +62,8 @@ public class employeecontroller {
 	
 	@GetMapping("/employees/{empid}")
 	public Employee getemployee(@PathVariable String empid) {
+		
+		logger.info("getemployees() called to  employee by id from  employeecontroller");
 	 
     return this.empservice.getemployee(Long.parseLong(empid));
     
@@ -61,35 +72,38 @@ public class employeecontroller {
 	// inserting new employee
 	
     @PostMapping("/employees")
-	public Employee addemployee(@RequestBody Employee emp)
+	public String addemployee(@Valid @RequestPart("emp") Employee emp , @Valid @RequestPart("file") MultipartFile file )
 	{
-		System.out.print("push mapping");
-    	return this.empservice.addemployee(emp);
-    	
+		logger.info("addemployee() called to add employees from  employeecontroller");
+    	return this.empservice.addemployee(emp,file);
+   	
 	}
     
     // update employee
     
     @PutMapping("/employees/{empid}")
-    public Employee updateemployee(@PathVariable  String empid, @RequestBody Employee emp) {
-    	System.out.println("employeecontroller.updateemployee()");
-    	return this.empservice.updateemployee(Long.parseLong(empid),emp);
+
+    public Employee updateemployee(@PathVariable  String empid,@Valid @RequestPart("emp") Employee emp ,@Valid  @RequestPart("file") MultipartFile file) {
+    	
+    	logger.info("updateemployee() called from  employeecontroller");
+
+    	return this.empservice.updateemployee(Long.parseLong(empid),emp,file);
     }
     
    // delete employee
     
     @DeleteMapping("/employees/{empid}")
     public ResponseEntity<HttpStatus> deleteemployee(@PathVariable String empid) {
-    	System.out.println("employeecontroller.deleteemployee()");
+    	logger.info("deleteemployee() called from employeecontroller");
     	try {
     		
     		this.empservice.deleteemployee(Long.parseLong(empid));
-    		
+    		logger.info("deleted successfully");
     		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	catch (Exception e) {
 			// TODO: handle exception
-    		
+    		logger.error("something went wrong in deleteemployee() in employeecontroller");
     		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     	
@@ -97,11 +111,11 @@ public class employeecontroller {
    	
     }
     
-    // image upload
-    
+
     @PostMapping("/upload-file")	
-	public ResponseEntity<String> uploadfile(@RequestParam("image") MultipartFile file)
+	public ResponseEntity<String> uploadfile(@Valid @RequestParam("image") MultipartFile file, @Valid @RequestParam("username") String un)
     {
+    	System.out.println(un);
 		/*
 		 * System.out.println(file.getOriginalFilename());
 		 * System.out.println(file.getSize());
@@ -120,14 +134,14 @@ public class employeecontroller {
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("only jpeg content type allow");	
     	}
     	
-    	boolean f=fileupload.uploadfile(file);
+    	//boolean f=fileupload.uploadfile(file);
       
-    	if(f) {
-    	  return ResponseEntity.ok("file is successfully uploaded");
-    	  
-    	}
-    	
-    	
+//    	if(f) {
+//    	  return ResponseEntity.ok("file is successfully uploaded");
+//    	  
+//    	}
+//    	
+//    	
     	}
     	catch(Exception e) {
     		e.printStackTrace();
@@ -136,7 +150,8 @@ public class employeecontroller {
     	
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("!! something went wrong !!");
 	}
-
-
-
 }
+
+
+
+

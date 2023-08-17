@@ -38,13 +38,15 @@ public class HumanResourceManagementSystemApplication {
 //		//authorityList.add(createAuthority("ADMIN","Admin role"));
 //		
 
-//	User user=new User();
-//	
-//		user.setUserName("puskar");
-//		user.setFirstName("Abhiraj");
-//		user.setLastName("Puskar");
-//	
-//		user.setPassword(passwordEncoder.encode("puskar@123"));
+//		User user=new User();
+//		
+//		user.setUserName("mohit");
+//		user.setFirstName("Mohit");
+//		user.setLastName("Sharma");
+//		
+//		user.setPassword(passwordEncoder.encode("mohit@123"));
+
+
 //		user.setEnabled(true);
 //		user.setAuthorities(authorityList);
 //		
@@ -70,6 +72,11 @@ public class HumanResourceManagementSystemApplication {
 //		authority.setRoleDescription(roleDescription);
 //		return authority;
 //	}
+
+//	
+	
+
+
 
 //	
 //

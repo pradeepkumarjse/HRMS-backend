@@ -1,7 +1,13 @@
 package com.realcoderz.controller;
 
-
 import java.util.List;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,29 +23,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.realcoderz.model.Admin;
 import com.realcoderz.service.adminservice;
 
-
-
-
-
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin("*")
 public class AdminController {
 	
+	private static final Logger logger=LoggerFactory.getLogger(AdminController.class);
+	
 	@Autowired
 	private adminservice empservice;
 	
-
-	
-	@GetMapping("/home")
-	public String home() {
-	return "index"; 
-	}
 
 	// get all admin details
 	
 	@GetMapping("/admin")
 	public List<Admin> getadmin() {
+		
+		logger.debug("getadmin() called from AdminController");
 		
 		return this.empservice.getadmin();
 	}
@@ -49,6 +49,8 @@ public class AdminController {
 	
 	@GetMapping("/admin/{empid}")
 	public Admin getadmin(@PathVariable String empid) {
+		
+		logger.debug("getadmin() called from AdminController");
 	 
     return this.empservice.getadmin(Long.parseLong(empid));
     
@@ -57,10 +59,10 @@ public class AdminController {
 	// inserting new admin
 	
     @PostMapping("/admin")
-	public Admin addadmin(@RequestBody Admin emp)
+	public Admin addadmin(@Valid @RequestBody Admin emp)
 	{
-		System.out.print("push mapping");
-    	return this.empservice.addadmin(emp);
+    	logger.info("addadmin() called from AdminController");
+		return this.empservice.addadmin(emp);
     	
     	
 	}
@@ -70,7 +72,9 @@ public class AdminController {
     
     @PutMapping("/employees/{empid}")
     public Admin updateadmin(@PathVariable  String empid, @RequestBody Admin emp) {
-    	System.out.println("employeecontroller.updateemployee()");
+    	
+    	logger.debug("updateadmin() called from AdminController");
+    	
     	return this.empservice.updateadmin(Long.parseLong(empid),emp);
     }
     
@@ -79,9 +83,8 @@ public class AdminController {
         
         @DeleteMapping("/admin/{empid}")
         public Admin deleteemployee(@PathVariable String empid) {
-        	System.out.println("employeecontroller.deleteemployee()");
-        	
-           return this.empservice.deleteadmin(Long.parseLong(empid));
+        	logger.debug("deleteemployee() called from AdminController");
+        	return this.empservice.deleteadmin(Long.parseLong(empid));
         }
         	
     

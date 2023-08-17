@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,8 @@ import com.realcoderz.service.IQuizService;
 @RequestMapping("/api/v1/quiz")
 @CrossOrigin("*")
 public class QuizController {
+	
+	private static final Logger logger=LoggerFactory.getLogger(QuizController.class);
 
 	@Autowired
 	private Result result;
@@ -39,7 +44,12 @@ public class QuizController {
 	Boolean submitted = false;
 
 	@PostMapping("/start/{username}")
+
 	public QuestionForm quiz(@PathVariable("username") String username) {
+		
+		logger.info("quiz() called from QuizController");
+
+	
 		if (username.equals("")) {
 			return null;
 		}
@@ -51,8 +61,10 @@ public class QuizController {
 
 	
 	
+
 	@ModelAttribute("result")
 	public Result getResult() {
+		logger.debug("getResult() called from QuizController");
 		return result;
 	}
 
@@ -60,6 +72,8 @@ public class QuizController {
 	
 	@PostMapping("/submit")
 	public Map<String, Integer> submit(@RequestBody QuestionForm qForm) {
+		logger.debug("submit() called from QuizController");
+
 		if (!submitted) {
 			result.setTotalCorrect(qService.getResult(qForm));
 			qService.saveScore(result);
@@ -73,17 +87,21 @@ public class QuizController {
 	
 	@GetMapping("/score")
 	public List<Result> score() {
+		logger.debug("score() called from QuizController");
 		List<Result> sList = qService.getTopScore();		
 		return sList;
 	}
 	
+	
 	@DeleteMapping("/delete-user-score/{id}")
 	public Map<String,Boolean> deleteUserScore(@PathVariable("id") int id) throws Exception{
+		logger.debug("deleteUserScore() called from QuizController");
 		Result result=resultRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Result not found on ::"+id));
 		resultRepo.delete(result);
 		Map<String,Boolean> response=new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
+	
 	
 }
